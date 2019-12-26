@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Index</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item {% if current_page == "index" %} active {% endif %}">
+	        <a class="nav-link" href="{% url 'index' %}">Главная</a>
+	      </li>
+	      <li class="nav-item {% if current_page == "articles" %} active {% endif %}"">
+	        <a class="nav-link" href="{% url 'articles' %}">Статьи</a>
+	      </li>
+	      <li class="nav-item {% if current_page == "docs" %} active {% endif %}"">
+	        <a class="nav-link" href="#">Документация</a>
+	      </li>
+
+	    </ul>
+	  </div>
+	</nav>
+
+	<br/>
+
+	<div class="container">
+		<div class="jumbotron">
+		  <h1 class="display-4">Классификатор статей</h1>
+		  <p class="lead">Вставте текст для классификации</p>
+		  <hr class="my-4">
+
+		  <form method="POST" action="{% url 'output' %}">
+        {% csrf_token %}
+			  <div class="form-group">
+			    <label for="exampleFormControlTextarea1">Вставлять сюда)</label>
+			    <textarea class="form-control" name="TextArea" id="TextArea" rows="7"></textarea>
+			  </div>
+        <!--
+			  <div class="form-group">
+			    <label for="exampleFormControlFile1">Или загрузите текстовым файлом</label>
+			    <input type="file" name="FileUpload" class="form-control-file" id="exampleFormControlFile1">
+			  </div>
+        -->
+        <br/>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
