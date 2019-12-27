@@ -23,9 +23,6 @@
 	      <li class="nav-item {% if current_page == "articles" %} active {% endif %}"">
 	        <a class="nav-link" href="{% url 'articles' %}">Статьи</a>
 	      </li>
-	      <li class="nav-item {% if current_page == "docs" %} active {% endif %}"">
-	        <a class="nav-link" href="#">Документация</a>
-	      </li>
 
 	    </ul>
 	  </div>
@@ -36,13 +33,12 @@
 	<div class="container">
 		<div class="jumbotron">
 		  <h1 class="display-4">Классификатор статей</h1>
-		  <p class="lead">Вставте текст для классификации</p>
 		  <hr class="my-4">
 
 		  <form method="POST" action="{% url 'output' %}">
         {% csrf_token %}
 			  <div class="form-group">
-			    <label for="exampleFormControlTextarea1">Вставлять сюда)</label>
+			    <label for="exampleFormControlTextarea1">вставьте текст в поле ниже</label>
 			    <textarea class="form-control" name="TextArea" id="TextArea" rows="7"></textarea>
 			  </div>
         <!--

@@ -76,32 +76,16 @@ X_transform = Pipeline([
 
 # Create your views here.
 
-class IndexView(TemplateView):
-    template_name = "index.html"
+def index_view(request):
+    return render(request, 'index.html', context={'current_page': 'index'})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['current_page'] = 'index'
-        return context
+def articles_view(request):
+    articles = Article.objects.all()
+    return render(request, 'articles.html', context={'articles': articles, 'current_page': 'articles'})
 
-class ArticlesView(TemplateView):
-    template_name = "articles.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['current_page'] = 'articles'
-
-        context['articles'] = Article.objects.all()
-        return context
-
-class ArticleView(TemplateView):
-    template_name = "article.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['article'] = Article.objects.get(pk=self.kwargs['article'])
-        return context
-
+def article_view(request, article):
+    article = Article.objects.get(pk=article)
+    return render(request, 'article.html', context={'article': article, 'current_page': 'articles'})
 
 def output_view(request):
     text = request.POST['TextArea']
@@ -115,6 +99,4 @@ def predict(text):
     model = load_model('model.h5')
     text = X_transform.transform([text]).toarray()
     scaler = MinMaxScaler(feature_range=(0, 100))
-    print(model.predict_proba(text))
-    print(scaler.fit_transform(model.predict_proba(text))[0])
     return scaler.fit_transform(model.predict_proba(text))[0]
