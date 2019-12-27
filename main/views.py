@@ -90,13 +90,11 @@ def article_view(request, article):
 def output_view(request):
     text = request.POST['TextArea']
     types = ['дача', 'здоровье', 'лайфхаки', 'новости', 'тренды']
-    output = []
-    for type, proba in zip(types, predict(text)):
-        output.append({'type': type, 'proba': proba})
+    output = predict(text)
     return render(request, 'output.html', context={'output': output})
 
 def predict(text):
     model = load_model('model.h5')
     text = X_transform.transform([text]).toarray()
-    scaler = MinMaxScaler(feature_range=(0, 100))
-    return scaler.fit_transform(model.predict_proba(text))[0]
+    types = ['дача', 'здоровье', 'лайфхаки', 'новости', 'тренды']
+    return types[model.predict_classes(text)[0]]

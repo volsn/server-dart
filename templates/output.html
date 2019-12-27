@@ -32,11 +32,7 @@
 
   <div class="container">
     <div class="jumbotron">
-      <ul>
-        {% for foo in output %}
-          <li> {{ foo.type }} - {{ foo.proba }} </li>
-        {% endfor %}
-      </ul>
+      <p>Эта статья относится к классу - {{ output }}</p>
     </div>
   </div>
 
