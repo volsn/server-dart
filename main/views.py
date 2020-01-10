@@ -81,7 +81,26 @@ def index_view(request):
 
 def articles_view(request):
     articles = Article.objects.all()
-    return render(request, 'articles.html', context={'articles': articles, 'current_page': 'articles'})
+
+    """
+         Расчитываем кол-во статей по категориям
+    """
+    types = list()
+    for article in articles:
+        types.append(article.type)
+
+    counts = {
+        'all': len(types),
+        'country': types.count('дача'),
+        'health': types.count('здоровье'),
+        'lifehacks': types.count('лайфхаки'),
+        'news': types.count('новости'),
+        'trends': types.count('тренды'),
+    }
+
+
+    return render(request, 'articles.html', context={'articles': articles, 'current_page': 'articles', \
+                                                        'counts': counts}) # передаем словарь кол-ва статей по категориям
 
 def article_view(request, article):
     article = Article.objects.get(pk=article)
@@ -89,6 +108,12 @@ def article_view(request, article):
 
 def output_view(request):
     text = request.POST['TextArea']
+
+    if text == '':
+        return render(request, 'error.html', context={'requirement': 'текст не должен быть пустым!'})
+    if len(text) < 50:
+        return render(request, 'error.html', context={'requirement': 'текст не может содержать меньше 50 символов!'})
+
     types = ['дача', 'здоровье', 'лайфхаки', 'новости', 'тренды']
     output = predict(text)
     return render(request, 'output.html', context={'output': output})

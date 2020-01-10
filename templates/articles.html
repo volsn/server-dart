@@ -91,12 +91,12 @@
 <div class="container">
 
   <div id="myBtnContainer">
-    <button class="btn btn-primary active" onclick="filterSelection('all')"> Все статьи</button>
-    <button class="btn btn-primary" onclick="filterSelection('дача')"> Дача</button>
-    <button class="btn btn-primary" onclick="filterSelection('здоровье')"> Здоровье</button>
-    <button class="btn btn-primary" onclick="filterSelection('лайфхаки')"> Лайфхаки</button>
-    <button class="btn btn-primary" onclick="filterSelection('новости')"> Новости</button>
-    <button class="btn btn-primary" onclick="filterSelection('тренды')"> Тренды</button>
+    <button class="btn btn-primary active" onclick="filterSelection('all')"> Все статьи - {{ counts.all }}</button>
+    <button class="btn btn-primary" onclick="filterSelection('дача')"> Дача - {{ counts.country }}</button>
+    <button class="btn btn-primary" onclick="filterSelection('здоровье')"> Здоровье - {{ counts.health }}</button>
+    <button class="btn btn-primary" onclick="filterSelection('лайфхаки')"> Лайфхаки - {{ counts.lifehacks }}</button>
+    <button class="btn btn-primary" onclick="filterSelection('новости')"> Новости - {{ counts.news }}</button>
+    <button class="btn btn-primary" onclick="filterSelection('тренды')"> Тренды - {{ counts.trends }}</button>
   </div>
 
   <br/>
